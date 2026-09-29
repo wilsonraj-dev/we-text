@@ -1,0 +1,51 @@
+<main class="page">
+  <header class="header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">W</span>
+      <span>We-Text</span>
+    </div>
+    <span class="header-note">Seu bloco de notas online</span>
+  </header>
+
+  <section class="workspace" aria-label="Documento">
+    <div class="document-heading">
+      <div>
+        <p class="eyebrow">DOCUMENTO</p>
+        <h1>/{{ slug() }}</h1>
+      </div>
+      <span class="live-badge"><span aria-hidden="true"></span> URL direta</span>
+    </div>
+
+    <div class="editor-shell">
+      @if (loadError()) {
+        <p class="load-error" role="alert">{{ loadError() }}</p>
+      }
+      <textarea
+        aria-label="Conteúdo do documento"
+        placeholder="Comece a escrever suas anotações aqui..."
+        spellcheck="true"
+        [disabled]="loading() || !!loadError()"
+        [value]="content()"
+        (input)="onInput($event)"
+      ></textarea>
+      <div class="editor-footer">
+        <span class="hint">Acesse esta URL novamente para encontrar seu texto.</span>
+        <span class="save-status" [class.error]="status() === 'error' || !!loadError()" role="status" aria-live="polite">
+          @if (loading()) {
+            Carregando...
+          } @else if (loadError()) {
+            Erro ao carregar
+          } @else if (status() === 'saving') {
+            <span class="status-dot" aria-hidden="true"></span> Salvando...
+          } @else if (status() === 'saved') {
+            <span class="status-check" aria-hidden="true">✓</span> Salvo
+          } @else if (status() === 'error') {
+            <span aria-hidden="true">!</span> Erro ao salvar
+          } @else {
+            Pronto para escrever
+          }
+        </span>
+      </div>
+    </div>
+  </section>
+</main>
