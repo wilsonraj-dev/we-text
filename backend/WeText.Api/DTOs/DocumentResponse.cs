@@ -5,5 +5,5 @@ public sealed record DocumentResponse(
     string Slug,
     string Content,
     DateTime CreatedAt,
-    DateTime UpdatedAt);
-
+    DateTime UpdatedAt,
+    bool IsProtected);
